@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-admin/dfwy-web-admin.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-admin/dfwy-web-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-common/dfwy-web-common.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-common/dfwy-web-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-framework/dfwy-web-framework.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-framework/dfwy-web-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-system/dfwy-web-system.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-system/dfwy-web-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dmz-sftp/dmz-sftp.iml" filepath="$PROJECT_DIR$/dmz-sftp/dmz-sftp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-core/elt-builder/elt-builder.iml" filepath="$PROJECT_DIR$/elt-core/elt-builder/elt-builder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-core/elt-common/elt-common.iml" filepath="$PROJECT_DIR$/elt-core/elt-common/elt-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-core/elt-core.iml" filepath="$PROJECT_DIR$/elt-core/elt-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-core/elt-database/elt-database.iml" filepath="$PROJECT_DIR$/elt-core/elt-database/elt-database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elt-core/elt-starter/elt-starter.iml" filepath="$PROJECT_DIR$/elt-core/elt-starter/elt-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/数据清洗.iml" filepath="$PROJECT_DIR$/数据清洗.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,8 @@
+
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(à»úÖ
+T
+java:S4719"9Replace charset name argument with StandardCharsets.UTF_8(¥ÞÆÏþÿÿÿÿ
+y
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "result".(±ÏÌ€ÿÿÿÿÿ
+Y
+java:S3752">Add a "method" parameter to this "@RequestMapping" annotation.(ôÈ ’üÿÿÿÿ

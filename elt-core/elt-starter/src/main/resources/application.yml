@@ -1,0 +1,56 @@
+server:
+  port: 9999
+#  servlet:
+#    session:
+#      timeout: 2m
+
+spring:
+  profiles:
+    include: druid
+elt:
+  #原始表
+  original:
+    #原始数据是否入库
+    saveToDatabase: false
+    #单次入库数量，受限于数据库设置   mysql  SHOW VARIABLES LIKE '%max_allowed_packet%';
+    singleSavecount: 1000
+    #是否异步入库，默认同步  true：异步，false：同步
+    async: true
+  #标准表
+  standard:
+    #标准表数据是否入库
+    saveToDatabase: false
+    singleSavecount: 1000
+    async: true
+  interface:
+    readTimeout: 60000  #等待sftp上传结束
+    connectTimeout: 30000
+  taxDataRequest:
+    type: http   #http  webservice
+    url: http://10.116.166.12:7080/restOriginal
+    webserviceMethod: #webservice 方法名
+    httpType: post  #post get
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.dfwy.**.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapping/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.dfwy: debug   #生产修改为INFO
+    com.dfwy.database.mapper: INFO
+  file: logs/elt-core.log
+snowflake:
+  workerId: 1
+  datacenterId: 2
+cqzh:
+  socket:
+    port: 18080
+  dev: 0 #0 测试 1生产
+
+
+

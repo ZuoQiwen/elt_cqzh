@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfwy.database.mapper.ELTMapper" >
+    <insert id="save"    parameterType="string">
+        ${sql}
+    </insert>
+
+    <insert id="saveLogMysql"   parameterType="com.dfwy.common.domain.OperatinLog">
+        insert into t_log(id,api,request,response,status,costTime,time,businessId)
+            values(
+                #{id},
+                #{api},
+                #{request},
+                #{response},
+                #{status},
+                #{costTime},
+                now(),
+                #{businessId}
+            );
+    </insert>
+    <insert id="saveLogOracle"   parameterType="com.dfwy.common.domain.OperatinLog">
+        DECLARE
+        CLOB_REQUEST NCLOB := #{request};
+        CLOB_RESPONSE NCLOB := #{response};
+          BEGIN
+            insert into t_log(id,api,request,response,status,costTime,time,businessId)
+            values(
+                #{id},
+                #{api},
+                CLOB_REQUEST,
+                CLOB_RESPONSE,
+                #{status},
+                #{costTime},
+                sysdate,
+                #{businessId}
+            );
+        END;
+    </insert>
+
+
+    <select id="selectAllELTTables"  resultType="com.dfwy.common.domain.ELTTable">
+        select * from ELT_TABLE
+    </select>
+    <select id="selectAllColumns"  resultType="com.dfwy.common.domain.ELTColumn">
+        select * from ELT_COLUMN
+    </select>
+    <select id="selectAllCodes"  resultType="com.dfwy.common.domain.Code">
+        SELECT BZB,MZ,MZMC FROM ELT_CODE
+        WHERE
+        MZ IS NOT NULL
+        AND MZMC IS NOT NULL
+        AND MZ !=''
+        AND MZMC !=''
+    </select>
+    <select id="selectIndicators" resultType="string">
+        select ZBZD from  elt_indicators
+    </select>
+
+
+    <insert id="insertIntoApprovalResult" parameterType="com.dfwy.common.domain.ftp.ApprovalResult">
+        insert into T_APPROVAL_RESULTS(
+            COP_PLT,
+            NTB_AREA,
+            COP_CODE,
+            TXP_RGT,
+            TXP_NAME,
+            OFSMID,
+            TRANSTAGE,
+            TRAN_RESULT,
+            FAILMSG,
+            PREAUTHAMTMAX,
+            APLTM,
+            APLFINCAMT,
+            LML,
+            APPRODATE,
+            PREAUTHAMT,
+            CNTID,
+            CURCODE,
+            PREAUTHSTARTDATE,
+            PREAUTHDUEDATE,
+            OBJTYPE,
+            TOACCTNO,
+            ACNOTYPE,
+            PAYMETHOD,
+            SIGNTIME,
+            LNDUEDTD,
+            FIRSTDRAEFLG,
+            FIRSTDRAEDATE,
+            SETDOWNDATE,
+            DRAWABLEAMT,
+            ACCTNO,
+            DRAWDATE,
+            DEAWAMT,
+            ASUMDRAWATMT,
+            ID,
+            CREATETIME,
+            BUSINESSID
+        )
+        (
+        <foreach collection="approvalResult.list" item="item" index="index" separator="union all">
+            select
+            #{item.COP_PLT},
+            #{item.NTB_AREA},
+            #{item.COP_CODE},
+            #{item.TXP_RGT},
+            #{item.TXP_NAME},
+            #{item.OFSMID},
+            #{item.TRANSTAGE},
+            #{item.TRAN_RESULT},
+            #{item.FAILMSG},
+            #{item.PREAUTHAMTMAX},
+            #{item.APLTM},
+            #{item.APLFINCAMT},
+            #{item.LML},
+            #{item.APPRODATE},
+            #{item.PREAUTHAMT},
+            #{item.CNTID},
+            #{item.CURCODE},
+            #{item.PREAUTHSTARTDATE},
+            #{item.PREAUTHDUEDATE},
+            #{item.OBJTYPE},
+            #{item.TOACCTNO},
+            #{item.ACNOTYPE},
+            #{item.PAYMETHOD},
+            #{item.SIGNTIME},
+            #{item.LNDUEDTD},
+            #{item.FIRSTDRAEFLG},
+            #{item.FIRSTDRAEDATE},
+            #{item.SETDOWNDATE},
+            #{item.DRAWABLEAMT},
+            #{item.ACCTNO},
+            #{item.DRAWDATE},
+            #{item.DEAWAMT},
+            #{item.ASUMDRAWATMT},
+            #{item.ID},
+            #{item.CREATETIME},
+            #{approvalResult.businessId}
+            from dual
+        </foreach>
+    </insert>
+
+
+
+    <insert id="saveNsrxx" parameterType="com.dfwy.common.domain.Nsrxx">
+        MERGE INTO T_NSRXX A
+        USING(
+                SELECT #{nsrsbh} AS NSRSBH, #{zgswjgdm} AS ZGSWJGDM, #{hydm} AS HYDM, #{xydj} AS XYDJ FROM DUAL
+        ) B
+        ON ( A.nsrsbh = B.NSRSBH)
+        WHEN MATCHED THEN
+        UPDATE SET
+            A.ZGSWJGDM = B.ZGSWJGDM,
+            A.HYDM = B.HYDM,
+            A.XYDJ = B.XYDJ
+        WHEN NOT MATCHED THEN
+            INSERT
+                (NSRSBH, ZGSWJGDM, HYDM, XYDJ)
+            VALUES
+                (#{nsrsbh}, #{zgswjgdm}, #{hydm}, #{xydj})
+    </insert>
+
+    <select id="selectEltDate" parameterType="string" resultType="string">
+        select request from t_log
+        where id=#{id}
+    </select>
+
+    <select id="selectSxmx" parameterType="string" resultType="com.dfwy.common.domain.ftp.FtpSXMX">
+        SELECT
+            'PRODUCT_CODE' AS CPDM,
+            APPROVAL.TXP_NAME AS NSRMC,
+            APPROVAL.TXP_RGT AS NSRSBH,
+            APPROVAL.CNTID AS HTBH,
+            APPROVAL.PREAUTHSTARTDATE AS SHQSRQ,
+            APPROVAL.PREAUTHDUEDATE AS SHZZRQ,
+            DECODE( APPROVAL.TRAN_RESULT, '10', 'Y', '11', 'Y', 'N' ) AS SFDK
+        FROM
+            T_APPROVAL_RESULTS APPROVAL
+        WHERE
+            APPROVAL.TRAN_RESULT = '09'
+          AND TO_CHAR( APPROVAL.CREATETIME, 'YYYYMMDD' ) = TO_CHAR(TO_DATE( #{date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+    </select>
+    <select id="selectNsxydj" parameterType="string" resultType="com.dfwy.common.domain.ftp.FtpNSXYDJMX">
+        SELECT
+        NSRXX.XYDJ AS NSXYPJ,
+        'PRODUCT_CODE' AS CPDM,
+        COUNT( DISTINCT SX.TXP_RGT ) AS SXHS,
+        SUM(
+        NVL( SX.PREAUTHAMT, 0 )) AS SXJE,
+        COUNT( DISTINCT YD.TXP_RGT ) AS YDHS,
+        SUM(
+        NVL( YD.DRAWABLEAMT, 0 )) DKYE,
+        COUNT( DISTINCT LT.TXP_RGT ) AS LTBS,
+        SUM(
+        NVL( LT.ASUMDRAWATMT, 0 )) AS LTJE
+        FROM
+        T_APPROVAL_RESULTS APPROVAL LEFT JOIN T_NSRXX NSRXX ON NSRXX.NSRSBH = APPROVAL.TXP_RGT LEFT JOIN T_APPROVAL_RESULTS SX ON SX.OFSMID = APPROVAL.OFSMID
+        AND SX.TRAN_RESULT IN ( '09', '10', '11' ) --授信成功的记录(包括结清)
+        LEFT JOIN T_APPROVAL_RESULTS YD ON YD.OFSMID = APPROVAL.OFSMID
+        AND YD.TRAN_RESULT IN ( '09', '10' ) --授信成功的记录（不包括结清）
+        LEFT JOIN T_APPROVAL_RESULTS LT ON LT.OFSMID = APPROVAL.OFSMID
+        AND LT.TRAN_RESULT = '10'
+        AND TO_CHAR( LT.CREATETIME, 'YYYYMMDD' ) =TO_CHAR(TO_DATE( #{date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+        GROUP BY
+        NSRXX.XYDJ
+    </select>
+
+    <select id="selectHymx" parameterType="string" resultType="com.dfwy.common.domain.ftp.FtpHYMX">
+        ---分行业统计数据
+        SELECT
+        NSRXX.HYDM AS HYDM,
+        'PRODUCT_CODE' AS CPDM,
+        COUNT( DISTINCT SX.TXP_RGT ) AS SXHS,
+        SUM(
+        NVL( SX.PREAUTHAMT, 0 )) AS SXJE,
+        COUNT( DISTINCT YD.TXP_RGT ) AS YDHS,
+        SUM(
+        NVL( YD.DRAWABLEAMT, 0 )) DKYE,
+        COUNT( DISTINCT LT.TXP_RGT ) AS LTBS,
+        SUM(
+        NVL( LT.ASUMDRAWATMT, 0 )) AS LTJE
+        FROM
+        T_APPROVAL_RESULTS APPROVAL LEFT JOIN T_NSRXX NSRXX ON NSRXX.NSRSBH = APPROVAL.TXP_RGT LEFT JOIN T_APPROVAL_RESULTS SX ON SX.OFSMID = APPROVAL.OFSMID
+        AND SX.TRAN_RESULT IN ( '09', '10', '11' ) --授信成功的记录(包括结清)
+        LEFT JOIN T_APPROVAL_RESULTS YD ON YD.OFSMID = APPROVAL.OFSMID
+        AND YD.TRAN_RESULT IN ( '09', '10' ) --授信成功的记录（不包括结清）
+        LEFT JOIN T_APPROVAL_RESULTS LT ON LT.OFSMID = APPROVAL.OFSMID
+        AND LT.TRAN_RESULT = '10' --放款成功的状态
+        AND TO_CHAR( LT.CREATETIME, 'YYYYMMDD' ) = TO_CHAR(TO_DATE( #{date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+        GROUP BY
+        NSRXX.HYDM
+    </select>
+
+    <select id="selectZgswj" parameterType="string" resultType="com.dfwy.common.domain.ftp.FtpZGSWJMX">
+        ---分主管税务局统计数据
+        SELECT
+        NSRXX.ZGSWJGDM AS ZGSWJGDM,
+        'PRODUCT_CODE' AS CPDM,
+        COUNT( DISTINCT SX.TXP_RGT ) AS SXHS,
+        SUM(
+        NVL( SX.PREAUTHAMT, 0 )) AS SXJE,
+        COUNT( DISTINCT YD.TXP_RGT ) AS YDHS,
+        SUM(
+        NVL( YD.DRAWABLEAMT, 0 )) DKYE,
+        COUNT( DISTINCT LT.TXP_RGT ) AS LTBS,
+        SUM(
+        NVL( LT.ASUMDRAWATMT, 0 )) AS LTJE
+        FROM
+        T_APPROVAL_RESULTS APPROVAL LEFT JOIN T_NSRXX NSRXX ON NSRXX.NSRSBH = APPROVAL.TXP_RGT LEFT JOIN T_APPROVAL_RESULTS SX ON SX.OFSMID = APPROVAL.OFSMID
+        AND SX.TRAN_RESULT IN ( '09', '10', '11' ) --授信成功的记录(包括结清)
+        LEFT JOIN T_APPROVAL_RESULTS YD ON YD.OFSMID = APPROVAL.OFSMID
+        AND YD.TRAN_RESULT IN ( '09', '10' ) --授信成功的记录（不包括结清）
+        LEFT JOIN T_APPROVAL_RESULTS LT ON LT.OFSMID = APPROVAL.OFSMID
+        AND LT.TRAN_RESULT = '10' --放款成功的状态
+        AND TO_CHAR( LT.CREATETIME, 'YYYYMMDD' ) = TO_CHAR(TO_DATE( #{date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+        GROUP BY
+        NSRXX.ZGSWJGDM
+    </select>
+
+    <insert id="insertIntoTaxDataRequest"  parameterType="com.dfwy.common.domain.taxdata.TaxDataRequest">
+        INSERT INTO T_TAXDATA_REQUEST
+        (
+            COP_PLT,
+            NTB_AREA,
+            NTB_CODE,
+            TXP_RGT,
+            TXP_NAME,
+            NTB_AUTH,
+            LP_NAME,
+            LP_TYPE,
+            LP_NUM,
+            QRY_TIME,
+            RES01,
+            RES02,
+            RES03,
+            RES04,
+            ID
+        )
+        values
+        (
+            #{COP_PLT},
+            #{NTB_AREA},
+            #{NTB_CODE},
+            #{TXP_RGT},
+            #{TXP_NAME},
+            #{NTB_AUTH},
+            #{LP_NAME},
+            #{LP_TYPE},
+            #{LP_NUM},
+            #{QRY_TIME},
+            #{RES01},
+            #{RES02},
+            #{RES03},
+            #{RES04},
+            #{RES05},
+            #{ID}
+        )
+
+    </insert>
+    <select id="selectSystemConfiger" resultType="com.dfwy.common.domain.SystemConfig">
+        select CONFIG_KEY,CONFIG_VALUE from SYS_CONFIG
+        where CONFIG_KEY like 'CQZH%'
+    </select>
+</mapper>

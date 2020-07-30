@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfwy.web.mapper.ApprovalMapper">
+
+
+	<select id="sxmxList" parameterType="string" resultType="com.dfwy.web.domain.FtpSXMX">
+		SELECT
+		'PRODUCT_CODE' AS CPDM,
+		APPROVAL.TXP_NAME AS NSRMC,
+		APPROVAL.TXP_RGT AS NSRSBH,
+		APPROVAL.CNTID AS HTBH,
+		APPROVAL.PREAUTHSTARTDATE AS SHQSRQ,
+		APPROVAL.PREAUTHDUEDATE AS SHZZRQ,
+		DECODE( APPROVAL.TRAN_RESULT, '10', 'Y', '11', 'Y', 'N' ) AS SFDK
+		FROM
+		T_APPROVAL_RESULTS APPROVAL
+		WHERE
+		APPROVAL.TRAN_RESULT = '09'
+		<if test="params.date != null and params.date != ''">
+			AND TO_CHAR( APPROVAL.CREATETIME, 'YYYYMMDD' ) = TO_CHAR(TO_DATE( #{params.date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+		</if>
+	</select>
+	<select id="xydjList" parameterType="string" resultType="com.dfwy.web.domain.FtpNSXYDJMX">
+		SELECT
+		NSRXX.XYDJ AS NSXYPJ,
+		'PRODUCT_CODE' AS CPDM,
+		COUNT( DISTINCT SX.TXP_RGT ) AS SXHS,
+		SUM(
+		NVL( SX.PREAUTHAMT, 0 )) AS SXJE,
+		COUNT( DISTINCT YD.TXP_RGT ) AS YDHS,
+		SUM(
+		NVL( YD.DRAWABLEAMT, 0 )) DKYE,
+		COUNT( DISTINCT LT.TXP_RGT ) AS LTBS,
+		SUM(
+		NVL( LT.ASUMDRAWATMT, 0 )) AS LTJE
+		FROM
+		T_APPROVAL_RESULTS APPROVAL LEFT JOIN T_NSRXX NSRXX ON NSRXX.NSRSBH = APPROVAL.TXP_RGT LEFT JOIN T_APPROVAL_RESULTS SX ON SX.OFSMID = APPROVAL.OFSMID
+		AND SX.TRAN_RESULT IN ( '09', '10', '11' ) --授信成功的记录(包括结清)
+		LEFT JOIN T_APPROVAL_RESULTS YD ON YD.OFSMID = APPROVAL.OFSMID
+		AND YD.TRAN_RESULT IN ( '09', '10' ) --授信成功的记录（不包括结清）
+		LEFT JOIN T_APPROVAL_RESULTS LT ON LT.OFSMID = APPROVAL.OFSMID
+		AND LT.TRAN_RESULT = '10'
+		<if test="params.date != null and params.date != ''">
+			AND TO_CHAR( LT.CREATETIME, 'YYYYMMDD' ) =TO_CHAR(TO_DATE( #{params.date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+		</if>
+		GROUP BY
+		NSRXX.XYDJ
+	</select>
+
+	<select id="hyList" parameterType="string" resultType="com.dfwy.web.domain.FtpHYMX">
+		---分行业统计数据
+		SELECT
+		NSRXX.HYDM AS HYDM,
+		'PRODUCT_CODE' AS CPDM,
+		COUNT( DISTINCT SX.TXP_RGT ) AS SXHS,
+		SUM(
+		NVL( SX.PREAUTHAMT, 0 )) AS SXJE,
+		COUNT( DISTINCT YD.TXP_RGT ) AS YDHS,
+		SUM(
+		NVL( YD.DRAWABLEAMT, 0 )) DKYE,
+		COUNT( DISTINCT LT.TXP_RGT ) AS LTBS,
+		SUM(
+		NVL( LT.ASUMDRAWATMT, 0 )) AS LTJE
+		FROM
+		T_APPROVAL_RESULTS APPROVAL LEFT JOIN T_NSRXX NSRXX ON NSRXX.NSRSBH = APPROVAL.TXP_RGT LEFT JOIN T_APPROVAL_RESULTS SX ON SX.OFSMID = APPROVAL.OFSMID
+		AND SX.TRAN_RESULT IN ( '09', '10', '11' ) --授信成功的记录(包括结清)
+		LEFT JOIN T_APPROVAL_RESULTS YD ON YD.OFSMID = APPROVAL.OFSMID
+		AND YD.TRAN_RESULT IN ( '09', '10' ) --授信成功的记录（不包括结清）
+		LEFT JOIN T_APPROVAL_RESULTS LT ON LT.OFSMID = APPROVAL.OFSMID
+		AND LT.TRAN_RESULT = '10' --放款成功的状态
+		<if test="params.date != null and params.date != ''">
+			AND TO_CHAR( LT.CREATETIME, 'YYYYMMDD' ) = TO_CHAR(TO_DATE( #{params.date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+		</if>
+		GROUP BY
+		NSRXX.HYDM
+	</select>
+
+	<select id="zgswjgList" parameterType="string" resultType="com.dfwy.web.domain.FtpZGSWJMX">
+		---分主管税务局统计数据
+		SELECT
+		NSRXX.ZGSWJGDM AS ZGSWJGDM,
+		'PRODUCT_CODE' AS CPDM,
+		COUNT( DISTINCT SX.TXP_RGT ) AS SXHS,
+		SUM(
+		NVL( SX.PREAUTHAMT, 0 )) AS SXJE,
+		COUNT( DISTINCT YD.TXP_RGT ) AS YDHS,
+		SUM(
+		NVL( YD.DRAWABLEAMT, 0 )) DKYE,
+		COUNT( DISTINCT LT.TXP_RGT ) AS LTBS,
+		SUM(
+		NVL( LT.ASUMDRAWATMT, 0 )) AS LTJE
+		FROM
+		T_APPROVAL_RESULTS APPROVAL LEFT JOIN T_NSRXX NSRXX ON NSRXX.NSRSBH = APPROVAL.TXP_RGT LEFT JOIN T_APPROVAL_RESULTS SX ON SX.OFSMID = APPROVAL.OFSMID
+		AND SX.TRAN_RESULT IN ( '09', '10', '11' ) --授信成功的记录(包括结清)
+		LEFT JOIN T_APPROVAL_RESULTS YD ON YD.OFSMID = APPROVAL.OFSMID
+		AND YD.TRAN_RESULT IN ( '09', '10' ) --授信成功的记录（不包括结清）
+		LEFT JOIN T_APPROVAL_RESULTS LT ON LT.OFSMID = APPROVAL.OFSMID
+		AND LT.TRAN_RESULT = '10' --放款成功的状态
+		<if test="params.date != null and params.date != ''">
+			AND TO_CHAR( LT.CREATETIME, 'YYYYMMDD' ) = TO_CHAR(TO_DATE( #{params.date}, 'YYYY-MM-DD' ),'YYYYMMDD')
+		</if>
+		GROUP BY
+		NSRXX.ZGSWJGDM
+	</select>
+
+	
+
+</mapper> 

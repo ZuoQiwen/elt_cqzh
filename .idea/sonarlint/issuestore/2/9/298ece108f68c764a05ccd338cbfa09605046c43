@@ -1,0 +1,10 @@
+
+R
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ8ŸÁÅ®.
+\
+java:S1128"?Remove this unused import 'java.time.format.DateTimeFormatter'.(‰÷÷ª8ŸÁÅ®.
+i	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ãêè—8“ÇÁ®.
+]
+java:S1128";Remove this unused import 'com.dfwy.common.utils.ELTUtils'.(ÃÃÄÙüÿÿÿÿ8ƒ¶Ò®.
+a
+java:S1128	"ERemove this unused import 'org.springframework.util.CollectionUtils'.(åå…K8ƒ¶Ò®.

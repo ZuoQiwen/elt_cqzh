@@ -1,0 +1,9 @@
+
+a
+java:S11241"EReorder the modifiers to comply with the Java Language Specification.(û¢H8±Ÿ®.
+U
+java:S35161"9Refactor this method to not always return the same value.(û¢H8±Ÿ®.
+v
+java:S1488)"[Immediately return this expression instead of assigning it to the temporary variable "sum".(‘Ê°®øÿÿÿÿ
+q
+java:S1488"[Immediately return this expression instead of assigning it to the temporary variable "sum".(£Ì×‡

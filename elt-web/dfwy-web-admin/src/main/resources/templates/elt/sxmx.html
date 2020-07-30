@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('ELT列表')" />
+</head>
+<body class="gray-bg">
+    <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="menu-form">
+					<div class="select-list">
+						<ul>
+							<li class="select-time">
+								<label style="width:80px">时间： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="日期" name="params[date]"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">
+					<i class="fa fa-download"></i> 导出
+				</a>
+	        </div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table"></table>
+			</div>
+	    </div>
+	</div>
+	
+	<th:block th:include="include :: footer" />
+	<th:block th:include="include :: layout-latest-js" />
+	<script th:inline="javascript">
+
+		$(function() {
+		    var options = {
+		        url: ctx + "elt/approval/sxmxList",
+		        exportUrl: ctx + "elt/approval/sxmx/export",
+		        modalName: "融资审批-授信明细",
+		        columns: [{
+                    checkbox: true
+                 },{
+		            title: '行业代码',
+		            field: 'hydm',
+		            width: '20%'
+		        },
+                 {
+		            title: '纳税人名称',
+		            field: 'nsrmc',
+		            width: '20%'
+		        },
+				{
+					title: '纳税人识别号',
+					field: 'nsrsbh',
+					width: '20%'
+				},
+				{
+					title: '合同编号',
+					field: 'htbh',
+					width: '20%'
+				},
+				{
+					title: '授信起始日期',
+					field: 'shqsrq',
+					width: '20%'
+				},
+				{
+					title: '授信终止日期',
+					field: 'shzzrq',
+					width: '20%'
+				},
+				{
+					title: '是否贷款（Y/N）',
+					field: 'sfdk',
+					width: '20%'
+				}]
+		    };
+		    $.table.init(options);
+		});
+	</script>
+</body>
+</html>

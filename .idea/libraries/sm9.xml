@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sm9">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dmz-sftp/src/main/resources/lib/sm9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

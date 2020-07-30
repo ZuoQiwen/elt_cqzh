@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="dmz-sftp" />
+        <module name="elt-database" />
+        <module name="elt-builder" />
+        <module name="dfwy-web-common" />
+        <module name="dfwy-web-system" />
+        <module name="dfwy-web-admin" />
+        <module name="elt-common" />
+        <module name="dfwy-web" />
+        <module name="elt-starter" />
+        <module name="dfwy-web-framework" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dfwy-web-admin" target="1.8" />
+      <module name="dfwy-web-common" target="1.8" />
+      <module name="dfwy-web-core" target="1.8" />
+      <module name="dfwy-web-framework" target="1.8" />
+      <module name="dfwy-web-system" target="1.8" />
+      <module name="dmz-sftp" target="1.7" />
+      <module name="elt-builder" target="1.8" />
+      <module name="elt-common" target="1.8" />
+      <module name="elt-core" target="1.8" />
+      <module name="elt-database" target="1.8" />
+      <module name="elt-database-generator-plugin" target="1.8" />
+      <module name="elt-indicators" target="1.8" />
+      <module name="elt-starter" target="1.8" />
+      <module name="elt-web" target="1.8" />
+      <module name="数据清洗" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="dfwy-web-common" options="" />
+      <module name="dfwy-web-core" options="-parameters" />
+      <module name="dfwy-web-framework" options="" />
+      <module name="dfwy-web-system" options="" />
+      <module name="dmz-sftp" options="-parameters" />
+      <module name="elt-builder" options="-parameters" />
+      <module name="elt-common" options="-parameters" />
+      <module name="elt-database" options="-parameters" />
+      <module name="elt-database-generator-plugin" options="-parameters" />
+      <module name="elt-indicators" options="-parameters" />
+      <module name="elt-starter" options="-parameters" />
+      <module name="elt-web" options="-parameters" />
+      <module name="数据清洗" options="" />
+    </option>
+  </component>
+</project>

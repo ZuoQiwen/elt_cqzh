@@ -1,0 +1,29 @@
+
+U
+java:S38785"8Remove this array creation and simply pass the elements.(ëÅ˜œ8İšÜ­.
+i
+java:S1192*"GDefine a constant instead of duplicating this literal "SKSSQZ" 3 times.(¾“šşÿÿÿÿÿ8„š©Ü­.
+x
+java:S3923-"[Remove this conditional structure or edit its code blocks so that they're not all the same.(§°ÈÛ8İšÜ­.
+o
+java:S1602)"SRemove useless curly braces around statement and then remove useless return keyword(÷Ë¯U8šİŸÜ­.
+g
+java:S11925"JDefine a constant instead of duplicating this literal "ZL1001003" 3 times.(ëÅ˜œ8İšÜ­.
+L
+java:S1128"/Remove this unused import 'java.util.Calendar'.(ÿÛö´8İšÜ­.
+g
+java:S11925"JDefine a constant instead of duplicating this literal "ZL1001002" 3 times.(ëÅ˜œ8İšÜ­.
+\
+java:S1128"?Remove this unused import 'com.dfwy.common.utils.tax.DateUtil'.(¹Öí¸8Ÿ‡ÒÛ­.
+R
+java:S1128"0Remove this unused import 'java.time.LocalTime'.(à®øÃùÿÿÿÿ8›ø–Ü­.
+g
+java:S11925"JDefine a constant instead of duplicating this literal "ZL1001001" 3 times.(ëÅ˜œ8İšÜ­.
+U
+java:S38789"8Remove this array creation and simply pass the elements.(¢¯ÙÊ8İšÜ­.
+c
+java:S1126F"AReplace this if-then-else statement by a single return statement.(ıû§íùÿÿÿÿ8İšÜ­.
+]
+java:S1128";Remove this unused import 'com.dfwy.common.utils.ELTUtils'.(ÃÃÄÙüÿÿÿÿ8Ÿ‡ÒÛ­.
+N
+java:S1128",Remove this unused import 'java.time.Month'.(¤‚Éøÿÿÿÿ8Íó«Ü­.

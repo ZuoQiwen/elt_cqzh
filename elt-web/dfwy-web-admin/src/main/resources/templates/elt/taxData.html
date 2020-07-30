@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('ELT列表')" />
+</head>
+<body class="gray-bg">
+    <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="menu-form">
+					<div class="select-list">
+						<ul>
+							<li class="select-time">
+								<label style="width:80px">时间： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+							</li>
+							<li>
+								纳税人识别号：<input type="text" name="TXP_RGT"/>
+							</li>
+							<li>
+								纳税人名称：<input type="text" name="TXP_NAME"/>
+							</li>
+							<li>
+								法人姓名：<input type="text" name="LP_NAME"/>
+							</li>
+							<li>
+								法人证件号码：<input type="text" name="LP_NUM"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">
+					<i class="fa fa-download"></i> 导出
+				</a>
+	        </div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table"></table>
+			</div>
+	    </div>
+	</div>
+	
+	<th:block th:include="include :: footer" />
+	<th:block th:include="include :: layout-latest-js" />
+	<script th:inline="javascript">
+		var prefix = ctx + "elt/record/taxData";
+
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        exportUrl: prefix + "/export",
+		        modalName: "国税数据查询记录",
+		        columns: [{
+                    field: 'selectItem', 
+                    radio: true
+                 },
+                 {
+		            title: '合作平台',
+		            field: 'COP_PLT',
+		            width: '20%'
+		        },
+                 {
+		            title: '区域码',
+		            field: 'NTB_AREA',
+		            width: '20%'
+		        },
+				{
+					title: '国税局编码',
+					field: 'NTB_CODE',
+					width: '20%'
+				},
+				{
+					title: '纳税人识别号',
+					field: 'TXP_RGT',
+					width: '20%'
+				},
+				{
+					title: '纳税人名称',
+					field: 'TXP_NAME',
+					width: '20%'
+				},
+				{
+					title: '授权编码',
+					field: 'NTB_AUTH',
+					width: '20%'
+				},
+				{
+					title: '法人姓名',
+					field: 'LP_NAME',
+					width: '20%'
+				},
+				{
+					title: '法人证件类型',
+					field: 'LP_TYPE',
+					width: '20%'
+				},
+				{
+					title: '法人证件号码',
+					field: 'LP_NUM',
+					width: '20%'
+				},
+				{
+					title: '查询时间',
+					field: 'QRY_TIME',
+					width: '20%'
+				},
+				{
+					title: '预留字段1',
+					field: 'RES01',
+					width: '20%'
+				},
+				{
+					title: '预留字段2',
+					field: 'RES02',
+					width: '20%'
+				},
+				{
+					title: '预留字段3',
+					field: 'RES03',
+					width: '20%'
+				},
+				{
+					title: '预留字段4',
+					field: 'RES04',
+					width: '20%'
+				},
+				{
+					title: '预留字段5',
+					field: 'RES05',
+					width: '20%'
+				}
+				]
+		    };
+		    $.table.init(options);
+		});
+
+		function reExecute(id){
+			$.modal.loading("重新执行中，请稍后...");
+			$.ajax({
+				cache : true,
+				type : "POST",
+				url : ctx + "elt/record/reexecute",
+				data : {
+					"id": id
+				},
+				async : true,
+				error : function(request) {
+					$.modal.alertError("系统错误");
+				},
+				success : function(data) {
+					$.modal.closeLoading();
+					if(data.code == "0"){
+						$.modal.alert("重新执行成功");
+					}else{
+						$.modal.alertError("重新执行失败");
+					}
+					$.table.refresh();
+				}
+			});
+		}
+	</script>
+</body>
+</html>

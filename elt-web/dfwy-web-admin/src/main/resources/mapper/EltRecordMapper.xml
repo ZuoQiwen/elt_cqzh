@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfwy.web.mapper.EltRecordMapper">
+
+	
+<select id="selectEltRecordList" parameterType="com.dfwy.web.domain.EltRecord" resultType="com.dfwy.web.domain.EltRecord">
+	SELECT ID,API,REQUEST,STATUS,to_char(TIME,'yyyy-MM-dd HH24:mi:ss')TIME,COSTTIME FROM T_LOG
+	where
+		api like 'CSPA220001'|| '%'
+		<if test="status !=null">
+			and  status =#{status}
+		</if>
+		<if test="params.beginTime != null and params.beginTime != ''">
+			AND time &gt;= to_date(#{params.beginTime},'yyyy-MM-dd HH24:mi:ss')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''">
+			AND time &lt;= to_date(#{params.endTime},'yyyy-MM-dd HH24:mi:ss')
+		</if>
+		order by time desc
+</select>
+	<select id="selectTaxDataRequestList" parameterType="com.dfwy.web.domain.TaxDataRequest" resultType="com.dfwy.web.domain.TaxDataRequest">
+		SELECT * from t_taxdata_request
+		<where>
+			<if test="params.beginTime != null and params.beginTime != ''">
+				AND CREATETIME &gt;= to_date(#{params.beginTime},'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			<if test="params.endTime != null and params.endTime != ''">
+				AND CREATETIME &lt;= to_date(#{params.endTime},'yyyy-MM-dd HH24:mi:ss')
+			</if>
+			<if test="TXP_RGT != null and TXP_RGT != ''">
+				AND TXP_RGT &gt;= #{TXP_RGT}
+			</if>
+			<if test="TXP_NAME != null and TXP_NAME != ''">
+				AND TXP_NAME &gt;= #{TXP_NAME}
+			</if>
+			<if test="LP_NAME != null and LP_NAME != ''">
+				AND LP_NAME &gt;= #{LP_NAME}
+			</if>
+			<if test="LP_NUM != null and LP_NUM != ''">
+				AND LP_NUM &gt;= #{LP_NUM}
+			</if>
+		</where>
+
+	</select>
+	
+
+</mapper> 
