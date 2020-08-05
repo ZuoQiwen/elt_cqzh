@@ -2,8 +2,8 @@ package com.dfwy.sftp;
 
 import com.dfwy.common.domain.ftp.SftpParam;
 import com.jcraft.jsch.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Properties;
 public class Sftp {
-    private Logger log = LoggerFactory.getLogger(Sftp.class);
+    //private Logger log = LoggerFactory.getLogger(Sftp.class);
 
     private SftpParam sftpParam;
 
@@ -32,9 +32,9 @@ public class Sftp {
             this.channelSftp.cd(src);
             this.channelSftp.put(new FileInputStream(file),file.getName());
         } catch (SftpException e) {
-            log.error("推送文件失败：src:"+src+",dest:"+dest,e);
+            // log.error("推送文件失败：src:"+src+",dest:"+dest,e);
         } catch (FileNotFoundException e) {
-            log.error("推送文件失败,文件不存在:"+dest,e);
+            //log.error("推送文件失败,文件不存在:"+dest,e);
         }
     }
     public void put(String src,String fileName, InputStream inputStream){
@@ -46,7 +46,7 @@ public class Sftp {
             this.channelSftp.cd(src);
             this.channelSftp.put(inputStream,fileName);
         } catch (SftpException e) {
-            log.error("推送文件失败：src:"+src+",dest:"+fileName,e);
+            // log.error("推送文件失败：src:"+src+",dest:"+fileName,e);
         }
     }
     public void close(){
@@ -75,7 +75,7 @@ public class Sftp {
             channel.connect();
             this.channelSftp =  (ChannelSftp) channel;
         } catch (JSchException e) {
-            log.error("sftp初始化错误",e);
+            // log.error("sftp初始化错误",e);
         }
     }
 }

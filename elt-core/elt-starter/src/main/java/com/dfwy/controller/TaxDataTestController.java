@@ -1,6 +1,8 @@
 package com.dfwy.controller;
 
 import com.dfwy.common.domain.CQBOCData;
+import com.dfwy.common.utils.Result;
+import com.dfwy.service.SftpService;
 import com.dfwy.service.TaxDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.time.LocalDate;
 
 /**
  *@className ELTController
@@ -24,7 +27,8 @@ import java.io.File;
 public class TaxDataTestController {
     @Autowired
     private TaxDataService taxDataService;
-
+    @Autowired
+    private SftpService sftpService;
     @RequestMapping("/restOriginal")
     public String taxData(@RequestBody CQBOCData cqTaxData) throws Exception {
         log.info("税务数据请求，参数"+cqTaxData);
@@ -42,5 +46,9 @@ public class TaxDataTestController {
     public String test1(String a, String b, @RequestBody String c, HttpServletRequest request) throws Exception {
         System.out.println(request.getHeader("Authorization"));
         return "success";
+    }
+    @RequestMapping("/sftpTest")
+    public Result sftpTest() {
+        return sftpService.sftpPutFile(LocalDate.now().toString());
     }
 }

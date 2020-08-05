@@ -16,8 +16,8 @@ public class ScheduleTask {
     private SftpService sftpService;
 
     //每天23点触发
-    //@Scheduled(cron = "0 0 23 * * ?")
-    @Scheduled(cron = "0 03 15 * * ?")
+    @Scheduled(cron = "0 0 23 * * ?")
+    //@Scheduled(cron = "0 03 15 * * ?")
     public void sftp() {
         log.info("[SFTP定时任务]开始");
         int i = 0;

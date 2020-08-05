@@ -19,6 +19,6 @@ public class SftpHttpServerTest  implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        SftpHttpUtils.writeResponse(httpExchange,Result.success("测试"));
+        SftpHttpUtils.writeResponse(httpExchange, Result.success("测试"));
     }
 }

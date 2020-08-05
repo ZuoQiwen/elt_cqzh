@@ -6,8 +6,8 @@ import com.dfwy.sftp.Sftp;
 import com.dfwy.sftp.SftpUtils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 /**
@@ -18,7 +18,7 @@ import java.io.IOException;
  * @Version 1.0
  **/
 public class SftpHttpServer implements HttpHandler {
-    private Logger log = LoggerFactory.getLogger(SftpHttpServer.class);
+    // private Logger log = LoggerFactory.getLogger(SftpHttpServer.class);
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -33,7 +33,7 @@ public class SftpHttpServer implements HttpHandler {
                 result =  Result.fail("参数无效");
             }
         } catch (Exception e) {
-            log.error("sftp文件上传失败", e);
+            //log.error("sftp文件上传失败", e);
             result =  Result.fail(e.getMessage());
         }
         SftpHttpUtils.writeResponse(httpExchange,result);

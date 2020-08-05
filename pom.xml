@@ -5,7 +5,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>elt-core</module>
-        <module>dmz-sftp</module>
         <module>elt-web</module>
     </modules>
     <parent>

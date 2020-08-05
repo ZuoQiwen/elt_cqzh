@@ -9,15 +9,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 public class SftpHttpUtils {
-    private static Logger log = LoggerFactory.getLogger(Sftp.class);
+    //private static Logger log = LoggerFactory.getLogger(Sftp.class);
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static FtpTask getRequestBody(HttpExchange httpExchange) {
@@ -25,7 +25,7 @@ public class SftpHttpUtils {
             String content = IOUtils.toString(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
             return StringUtil.isEmpty(content) ? null : objectMapper.readValue(content, FtpTask.class);
         } catch (IOException e) {
-            log.error("读取请求数据异常", e);
+            // log.error("读取请求数据异常", e);
         }
         return null;
     }

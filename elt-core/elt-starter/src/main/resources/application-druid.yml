@@ -7,7 +7,7 @@ spring:
 #      password: 123456
       url: jdbc:oracle:thin:@//127.0.0.1:1521/orcl
       username: elt
-      password: Tu+dJ5WhJEFDY3QAY81cVfDG6Z2hJKSTOk+JwvZh545Z9pYLz/nMX9pzS+3+BmJJYxNzMfM63TQ7XI1d+mCAIg==
+      password: 123456
       driveClassName: oracle.jdbc.OracleDriver   #com.mysql.cj.jdbc.Driver
       initialSize: 5
       minIdle: 5

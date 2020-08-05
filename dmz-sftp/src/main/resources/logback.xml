@@ -30,11 +30,9 @@
 
 	
 	<!-- 系统模块日志级别控制  -->
-	<logger name="com.dfwy" level="INFO" />
-	<!-- cxf日志级别控制  -->
-	<logger name="org.apache.cxf" level="INFO" />
+	<logger name="com.dfwy" level="ERROR" />
 
-	<root level="info">
+	<root level="ERROR">
 		<appender-ref ref="console" />
 		<appender-ref ref="dmz-sftp" />
 	</root>

@@ -2,8 +2,6 @@ package com.dfwy;
 
 import com.dfwy.common.domain.ftp.*;
 import com.dfwy.common.utils.Result;
-import com.dfwy.service.SftpService;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ public class DmzSftpTest {
         list2.add(ftpZGSWJMX);
         list3.add(ftpNSXYDJMX);
 
-        dmzFtp.setDate("20200715").setFtpHYMX(list1).setFtpNSXYDJMX(list3).setFtpSXMX(list).setFtpZGSWJMX(list2);
+        dmzFtp.setDate("20200805").setFtpHYMX(list1).setFtpNSXYDJMX(list3).setFtpSXMX(list).setFtpZGSWJMX(list2);
 //        JaxWsProxyFactoryBean client = new JaxWsProxyFactoryBean();
 //        client.setAddress("http://localhost:18082/sftp");
 //        client.setServiceClass(com.dfwy.webservice.SftpService.class);

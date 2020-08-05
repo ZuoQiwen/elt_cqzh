@@ -12,6 +12,7 @@
     <artifactId>elt-starter</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>com.dfwy</groupId>
             <artifactId>elt-builder</artifactId>
@@ -36,7 +37,11 @@
             <artifactId>netty-all</artifactId>
             <version>5.0.0.Alpha1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20200518</version>
+        </dependency>
 
     </dependencies>
     <build>

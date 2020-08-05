@@ -3,6 +3,7 @@ package com.dfwy.common.domain.taxdata;
 import com.dfwy.common.domain.CQBOCData;
 import lombok.Data;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -34,7 +35,13 @@ public class TaxDataRequest {
     public TaxDataRequest(){
         this.ID = UUID.randomUUID().toString().replace("_","");
     }
-
+    public TaxDataRequest(Map<String,String> map){
+        this.ID = UUID.randomUUID().toString().replace("_","");
+        this.TXP_RGT = map.get("TXP_RGT");
+        this.NTB_CODE = map.get("NTB_CODE");
+        this.TXP_RGT = map.get("TXP_RGT");
+        this.TXP_NAME = map.get("TXP_NAME");
+    }
 
     public CQBOCData getData(){
         return new CQBOCData().setCPBM("QED-YSD")

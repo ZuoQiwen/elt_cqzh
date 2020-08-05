@@ -7,6 +7,9 @@ import com.dfwy.database.mapper.ELTMapper;
 import com.dfwy.service.BuildService;
 import com.dfwy.service.SftpService;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,9 +40,16 @@ public class SocketServerHandler {
      * @author zuoqiwen
      * @date 2020/7/20 14:42
      */
-    public String handler(String str) {
-
-        return "1213";
+    public String handler(String str) throws JSONException {
+        Map<String,Object> map = XML.toJSONObject(str).toMap();
+        if(map.containsKey("CSPA05")){
+            return taxDataHandler(new TaxDataRequest((((Map<String, Map<String, String>>) map.get("CSPA05")).get("REP_MSG"))));
+        }else if(map.containsKey("CSPA02")){
+            return sftpHandler(new ApprovalResult((((Map<String, Map<String, String>>) map.get("CSPA02")).get("REP_MSG"))));
+        }else{
+            log.error("报文解析异常");
+            return "";
+        }
     }
 
     /**
@@ -78,4 +88,20 @@ public class SocketServerHandler {
             return SftpResponse.fail("数据存储失败");
         }
     }
+
+    public static void main(String[] args) {
+        String xml="<?xml version=\"1.0\" encoding=\"GBK\" ?>\n" +
+                "<CSPA05>\n" +
+                "\t<REP_HEAD>\t\n" +
+                "\t</REP_HEAD>\n" +
+                "\t<REP_MSG>\n" +
+                "\t\n" +
+                "\t</REP_MSG>\n" +
+                "</CSPA05>";
+        Map<String,Object> map = XML.toJSONObject(xml).toMap();
+        Object object  = map.get("CSPA05");
+        System.out.println(object);
+        System.out.println((((Map<String, Map<String, String>>) map.get("CSPA05")).get("REP_MSG")));
+    }
+
 }

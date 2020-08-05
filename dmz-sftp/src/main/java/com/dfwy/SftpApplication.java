@@ -18,7 +18,7 @@ public class SftpApplication {
             server.createContext("/sftp",new SftpHttpServer());
             server.createContext("/test",new SftpHttpServerTest());
             server.start();
-            logger.info("sftp服务启动成功");
+            logger.info("sftp server started");
         } catch (IOException e) {
             e.printStackTrace();
         }

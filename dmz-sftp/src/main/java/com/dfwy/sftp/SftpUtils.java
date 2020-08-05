@@ -8,8 +8,8 @@ import com.dfwy.common.domain.ftp.SftpParam;
 import com.dfwy.common.utils.StringUtil;
 import com.dfwy.utils.SM9Util;
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -21,7 +21,7 @@ import java.util.List;
 
 
 public class SftpUtils {
-    private Logger log = LoggerFactory.getLogger(SftpUtils.class);
+    //private Logger log = LoggerFactory.getLogger(SftpUtils.class);
 
     private FtpTask ftpTask;
 
@@ -38,7 +38,11 @@ public class SftpUtils {
     public void put() {
         DmzFtp dmzFtp = ftpTask.getDmzFtp();
         SftpParam sftpParam = ftpTask.getSftpParam();
-        log.info("ftp文件上传：" + dmzFtp);
+//        log.info("ftp文件上传：SXMX[{}]ZGSWJDM[{}]HYDM[{}]NSXYDJ[{}]" ,
+//                size(dmzFtp.getFtpSXMX()),
+//                size(dmzFtp.getFtpZGSWJMX()),
+//                size(dmzFtp.getFtpHYMX()),
+//                size(dmzFtp.getFtpNSXYDJMX()));
         Sftp sftp = new Sftp(sftpParam);
         String fileName = sftpParam.getYhbm() + dmzFtp.getDate();
         sftp.put(sftpParam.getSrc(), "SXMX_" + fileName, createInputStream(getContent(dmzFtp.getFtpSXMX())));
@@ -46,9 +50,16 @@ public class SftpUtils {
         sftp.put(sftpParam.getSrc(), "HYDM_" + fileName, createInputStream(getContent(dmzFtp.getFtpHYMX())));
         sftp.put(sftpParam.getSrc(), "NSXYDJ_" + fileName, createInputStream(getContent(dmzFtp.getFtpNSXYDJMX())));
         sftp.close();
-        log.info("ftp文件上传成功");
+     //   log.info("ftp文件上传成功");
     }
 
+    private String size(List list){
+        if(CollectionUtils.isEmpty(list)){
+            return "0";
+        }else{
+            return String.valueOf(list.size());
+        }
+    }
     private InputStream createInputStream(String content) {
         return new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
     }
@@ -81,10 +92,10 @@ public class SftpUtils {
                             line.toString()).append(LINE_DELIMITER);
                 }
                 String result = sb.length() > LINE_DELIMITER.length() ? sb.substring(0, sb.length() - LINE_DELIMITER.length()) : sb.toString();
-                log.info("获取文件内容成功：" + result);
+                //log.info("获取文件内容成功：" + (list.size()>0?list.get(0).getClass().getSimpleName():""));
                 return SM9Util.encrypt(result);
             } catch (Exception e) {
-                log.info("获取文件内容失败：list：{},文本：{}", list, sb.toString());
+                //log.info("获取文件内容失败：list：{},文本：{}", list, sb.toString());
                 throw new RuntimeException("获取文件数据异常", e);
             }
         }

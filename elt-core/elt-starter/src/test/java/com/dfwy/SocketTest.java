@@ -10,7 +10,8 @@ import java.net.Socket;
 public class SocketTest {
     @SneakyThrows
     public static void main(String[] args) {
-        String str= "000061212";
+        String str= "java 转译符号\"\"" +
+                "";
         try(Socket socket=new Socket("127.0.0.1", 18080);
             BufferedReader reader=new BufferedReader(new InputStreamReader(socket.getInputStream(),"utf-8"));
             BufferedWriter  writer =  new BufferedWriter (new OutputStreamWriter(socket.getOutputStream(),"utf-8"));){

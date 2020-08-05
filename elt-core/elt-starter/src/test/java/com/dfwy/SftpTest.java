@@ -11,11 +11,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class SftpTest {
-    @Autowired
-    private RestTemplate restTemplate;
+//    @Autowired
+//    private RestTemplate restTemplate;
     @Test
     public void test(){
         DmzFtp dmzFtp = new DmzFtp("2020-10-11");
@@ -28,7 +28,7 @@ public class SftpTest {
         List<FtpZGSWJMX> zgswjmxes = new ArrayList<>();
         zgswjmxes.add(new FtpZGSWJMX().setCpdm("sss").setCpdm("ss"));
         dmzFtp.setFtpHYMX(hymxList).setFtpZGSWJMX(zgswjmxes).setFtpNSXYDJMX(nsxydjmxList).setFtpSXMX(ftpSXMXList);
-        System.out.println(restTemplate.postForEntity("http://127.0.0.1:8081/sftp/put",dmzFtp, Result.class).getBody());
+        System.out.println(new RestTemplate().postForEntity("http://127.0.0.1:35168/sftp",dmzFtp, Result.class).getBody());
 
     }
 }

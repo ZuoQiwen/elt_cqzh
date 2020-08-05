@@ -7,7 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dmz-sftp" />
         <module name="elt-database" />
         <module name="elt-builder" />
         <module name="dfwy-web-common" />
@@ -43,7 +42,7 @@
       <module name="dfwy-web-core" options="-parameters" />
       <module name="dfwy-web-framework" options="" />
       <module name="dfwy-web-system" options="" />
-      <module name="dmz-sftp" options="-parameters" />
+      <module name="dmz-sftp" options="" />
       <module name="elt-builder" options="-parameters" />
       <module name="elt-common" options="-parameters" />
       <module name="elt-database" options="-parameters" />
