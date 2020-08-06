@@ -10,11 +10,12 @@ import com.sun.net.httpserver.HttpHandler;
 //import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+
 /**
  * @ClassName SftpHttpServer
- * @Description  sftp服务
+ * @Description sftp服务
  * @Author zuoqiwen
- * @Date 2020/7/29 10:06 
+ * @Date 2020/7/29 10:06
  * @Version 1.0
  **/
 public class SftpHttpServer implements HttpHandler {
@@ -25,17 +26,17 @@ public class SftpHttpServer implements HttpHandler {
         Result result = null;
         try {
             FtpTask ftpTask = SftpHttpUtils.getRequestBody(httpExchange);
-            boolean falg=SftpHttpUtils.isEffective(ftpTask);
-            if(falg){
+            boolean falg = SftpHttpUtils.isEffective(ftpTask);
+            if (falg) {
                 new SftpUtils(ftpTask).put();
-                result =  Result.success();
-            }else{
-                result =  Result.fail("参数无效");
+                result = Result.success();
+            } else {
+                result = Result.fail("参数无效");
             }
         } catch (Exception e) {
             //log.error("sftp文件上传失败", e);
-            result =  Result.fail(e.getMessage());
+            result = Result.fail("文件上传失败");
         }
-        SftpHttpUtils.writeResponse(httpExchange,result);
+        SftpHttpUtils.writeResponse(httpExchange, result);
     }
 }

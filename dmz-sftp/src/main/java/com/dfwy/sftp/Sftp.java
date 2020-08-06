@@ -22,21 +22,21 @@ public class Sftp {
         this.sftpParam = sftpParam;
     }
 
-    public void put(String src, String dest){
-        File file = new File(dest);
-        this.getChannelSftp();
-        try {
-            if(this.channelSftp.ls(src) == null){
-                this.channelSftp.mkdir(src);
-            }
-            this.channelSftp.cd(src);
-            this.channelSftp.put(new FileInputStream(file),file.getName());
-        } catch (SftpException e) {
-            // log.error("推送文件失败：src:"+src+",dest:"+dest,e);
-        } catch (FileNotFoundException e) {
-            //log.error("推送文件失败,文件不存在:"+dest,e);
-        }
-    }
+//    public void put(String src, String dest){
+//        File file = new File(dest);
+//        this.getChannelSftp();
+//        try {
+//            if(this.channelSftp.ls(src) == null){
+//                this.channelSftp.mkdir(src);
+//            }
+//            this.channelSftp.cd(src);
+//            this.channelSftp.put(new FileInputStream(file),file.getName());
+//        } catch (SftpException e) {
+//            // log.error("推送文件失败：src:"+src+",dest:"+dest,e);
+//        } catch (FileNotFoundException e) {
+//            //log.error("推送文件失败,文件不存在:"+dest,e);
+//        }
+//    }
     public void put(String src,String fileName, InputStream inputStream){
         this.getChannelSftp();
         try {
@@ -46,7 +46,7 @@ public class Sftp {
             this.channelSftp.cd(src);
             this.channelSftp.put(inputStream,fileName);
         } catch (SftpException e) {
-            // log.error("推送文件失败：src:"+src+",dest:"+fileName,e);
+            throw new RuntimeException("推送文件失败：src:"+src+",dest:"+fileName);
         }
     }
     public void close(){
@@ -76,6 +76,7 @@ public class Sftp {
             this.channelSftp =  (ChannelSftp) channel;
         } catch (JSchException e) {
             // log.error("sftp初始化错误",e);
+            throw new RuntimeException("SFTP连接异常");
         }
     }
 }

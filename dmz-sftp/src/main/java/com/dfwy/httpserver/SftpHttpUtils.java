@@ -35,8 +35,16 @@ public class SftpHttpUtils {
 
     }
 
-    public static void writeResponse(HttpExchange httpExchange, Result result) throws IOException {
+    public static void writeResponse(HttpExchange httpExchange, Object result) throws IOException {
         String response = objectMapper.writeValueAsString(result);
+        Headers headers = httpExchange.getResponseHeaders();
+        headers.set("Content-Type", "application/json; charset=utf-8");
+        httpExchange.sendResponseHeaders(200, 0);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(response.getBytes(StandardCharsets.UTF_8));
+        httpExchange.close();
+    }
+    public static void writeResponse(HttpExchange httpExchange, String response) throws IOException {
         Headers headers = httpExchange.getResponseHeaders();
         headers.set("Content-Type", "application/json; charset=utf-8");
         httpExchange.sendResponseHeaders(200, 0);

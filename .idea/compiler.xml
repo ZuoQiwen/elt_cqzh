@@ -7,7 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="dfwy-web-framework" />
         <module name="elt-database" />
+        <module name="dmz-sftp" />
         <module name="elt-builder" />
         <module name="dfwy-web-common" />
         <module name="dfwy-web-system" />
@@ -15,7 +17,6 @@
         <module name="elt-common" />
         <module name="dfwy-web" />
         <module name="elt-starter" />
-        <module name="dfwy-web-framework" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,7 +25,7 @@
       <module name="dfwy-web-core" target="1.8" />
       <module name="dfwy-web-framework" target="1.8" />
       <module name="dfwy-web-system" target="1.8" />
-      <module name="dmz-sftp" target="1.7" />
+      <module name="dmz-sftp" target="1.8" />
       <module name="elt-builder" target="1.8" />
       <module name="elt-common" target="1.8" />
       <module name="elt-core" target="1.8" />

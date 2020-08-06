@@ -7,9 +7,7 @@ import com.dfwy.common.domain.ftp.FtpTask;
 import com.dfwy.common.domain.ftp.SftpParam;
 import com.dfwy.common.utils.StringUtil;
 import com.dfwy.utils.SM9Util;
-import org.apache.commons.collections.CollectionUtils;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -38,19 +36,14 @@ public class SftpUtils {
     public void put() {
         DmzFtp dmzFtp = ftpTask.getDmzFtp();
         SftpParam sftpParam = ftpTask.getSftpParam();
-//        log.info("ftp文件上传：SXMX[{}]ZGSWJDM[{}]HYDM[{}]NSXYDJ[{}]" ,
-//                size(dmzFtp.getFtpSXMX()),
-//                size(dmzFtp.getFtpZGSWJMX()),
-//                size(dmzFtp.getFtpHYMX()),
-//                size(dmzFtp.getFtpNSXYDJMX()));
+
         Sftp sftp = new Sftp(sftpParam);
         String fileName = sftpParam.getYhbm() + dmzFtp.getDate();
-        sftp.put(sftpParam.getSrc(), "SXMX_" + fileName, createInputStream(getContent(dmzFtp.getFtpSXMX())));
-        sftp.put(sftpParam.getSrc(), "ZGSWJDM_" + fileName, createInputStream(getContent(dmzFtp.getFtpZGSWJMX())));
-        sftp.put(sftpParam.getSrc(), "HYDM_" + fileName, createInputStream(getContent(dmzFtp.getFtpHYMX())));
-        sftp.put(sftpParam.getSrc(), "NSXYDJ_" + fileName, createInputStream(getContent(dmzFtp.getFtpNSXYDJMX())));
+        sftp.put(sftpParam.getSrc(), "SXMX_" + fileName+".txt", createInputStream(getContent(dmzFtp.getFtpSXMX())));
+        sftp.put(sftpParam.getSrc(), "ZGSWJDM_" + fileName+".txt", createInputStream(getContent(dmzFtp.getFtpZGSWJMX())));
+        sftp.put(sftpParam.getSrc(), "HYDM_" + fileName+".txt", createInputStream(getContent(dmzFtp.getFtpHYMX())));
+        sftp.put(sftpParam.getSrc(), "NSXYDJ_" + fileName+".txt", createInputStream(getContent(dmzFtp.getFtpNSXYDJMX())));
         sftp.close();
-     //   log.info("ftp文件上传成功");
     }
 
     private String size(List list){

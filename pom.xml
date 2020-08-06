@@ -6,6 +6,7 @@
     <modules>
         <module>elt-core</module>
         <module>elt-web</module>
+        <module>dmz-sftp</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

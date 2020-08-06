@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-common/dfwy-web-common.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-common/dfwy-web-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-framework/dfwy-web-framework.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-framework/dfwy-web-framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/elt-web/dfwy-web-system/dfwy-web-system.iml" filepath="$PROJECT_DIR$/elt-web/dfwy-web-system/dfwy-web-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dmz-sftp/dmz-sftp.iml" filepath="$PROJECT_DIR$/dmz-sftp/dmz-sftp.iml" />
       <module fileurl="file://$PROJECT_DIR$/elt-core/elt-builder/elt-builder.iml" filepath="$PROJECT_DIR$/elt-core/elt-builder/elt-builder.iml" />
       <module fileurl="file://$PROJECT_DIR$/elt-core/elt-common/elt-common.iml" filepath="$PROJECT_DIR$/elt-core/elt-common/elt-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/elt-core/elt-core.iml" filepath="$PROJECT_DIR$/elt-core/elt-core.iml" />
