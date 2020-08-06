@@ -133,14 +133,15 @@ public class Table {
             log.debug("[FILTER]表级别数据处理:" + item.getGltj()+", 过滤规则："+rules);
             this.original = original.stream().filter(x->filterHelper.filter(rules,x)).collect(Collectors.toList());
         }
-        if (ELTUtils.isTrue(this.item.getSfqc()) && !StringUtil.isEmpty(item.getQczd())) {
-            log.debug("[DISTINCT]表级别数据处理:" + item.getQczd());
-            this.original = ELTUtils.distinct(original, item.getQczd().split(","));
-        }
         if(ELTUtils.isTrue(this.item.getSfpx()) && !StringUtil.isEmpty(item.getPxzd())){
             log.debug("[ORDER]表级别数据处理:" + item.getPxzd());
             SortHelper.sort(this.original,item.getPxzd());
         }
+        if (ELTUtils.isTrue(this.item.getSfqc()) && !StringUtil.isEmpty(item.getQczd())) {
+            log.debug("[DISTINCT]表级别数据处理:" + item.getQczd());
+            this.original = ELTUtils.distinct(original, item.getQczd().split(","));
+        }
+
         return this;
     }
 
