@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  * @author zuoqiwen
  */
 public class SocketUtils {
-    private static final String CHARSET_NAME="UTF-8";
+    private static final String CHARSET_NAME="GBK";
     public static String fixBytesLengthFormat(String xmlStr) {
         int a = 0;
         try {
@@ -42,7 +42,7 @@ public class SocketUtils {
     public static String current(){
         return  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
-    public static ByteBuf response(String xml){
-        return Unpooled.copiedBuffer(fixBytesLengthFormat(xml).getBytes());
+    public static ByteBuf response(String xml) throws UnsupportedEncodingException {
+        return Unpooled.copiedBuffer(fixBytesLengthFormat(xml).getBytes(CHARSET_NAME));
     }
 }

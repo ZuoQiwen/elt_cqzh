@@ -24,7 +24,7 @@ public class JAXBUtils{
             JAXBContext context = JAXBContext.newInstance(classesToBeBound);
             Marshaller marshaller = context.createMarshaller();
             //格式化输出
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             //取消xml头部
             //marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             //取消特殊字符转译

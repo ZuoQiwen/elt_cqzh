@@ -12,7 +12,7 @@ public class ELTUtils {
      * @return
      */
     public static boolean isTrue(int i){
-        return 0!=1;
+        return 0!=i;
     }
 
     public static boolean biggerThan(String i,int j){

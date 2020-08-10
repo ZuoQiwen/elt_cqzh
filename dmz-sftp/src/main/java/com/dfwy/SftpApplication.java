@@ -9,15 +9,16 @@ import com.sun.net.httpserver.HttpServer;
 //import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 
 public class SftpApplication {
     //private static Logger logger = LoggerFactory.getLogger(SftpApplication.class);
     public static void main(String[] args) {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(35168), 10);
-            server.setExecutor(Executors.newFixedThreadPool(50));
+            HttpServer server = HttpServer.create(new InetSocketAddress(35168), 100);
+            ExecutorService executorService = new ThreadPoolExecutor(10,200,60, TimeUnit.SECONDS,new LinkedBlockingQueue<>());
+            server.setExecutor(executorService);
             server.createContext("/sftp",new SftpHttpServer());
             server.createContext("/test",new SftpHttpServerTest());
             server.createContext("/transform",new ForwardServer());

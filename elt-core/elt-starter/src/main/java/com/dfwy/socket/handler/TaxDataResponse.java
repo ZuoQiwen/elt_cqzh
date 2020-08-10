@@ -35,7 +35,7 @@ public class TaxDataResponse {
         public String inf;
         @XmlElement(name = "RM")
         public Data rm;
-
+        public Response(){}
         public Response(String result, String inf, Map<String, List<Map<String, String>>> data) {
             this.result = result;
             this.inf = inf;
@@ -144,20 +144,23 @@ public class TaxDataResponse {
             @XmlJavaTypeAdapter(MapAdapter.class)
             private List<Map<String, String>> RES05;
             @XmlJavaTypeAdapter(MapAdapter.class)
+            @XmlElementWrapper
             private List<Map<String, String>> RES99;
 
+            public Data(){
 
+            }
             public Data(Map<String, List<Map<String, String>>> data) {
                 List<Map<String, String>> empty = new ArrayList<>();
-                this.NSR = CollectionUtils.isEmpty(data.get("NSR")) ? data.get("NSR").get(0) : new HashMap<>();
-                this.JCXX = CollectionUtils.isEmpty(data.get("JCXX")) ? data.get("JCXX").get(0) : new HashMap<>();
-                this.FRXX = CollectionUtils.isEmpty(data.get("FRXX")) ? data.get("FRXX").get(0) : new HashMap<>();
-                this.XYJB = CollectionUtils.isEmpty(data.get("XYJB")) ? data.get("XYJB").get(0) : new HashMap<>();
+                this.NSR = !CollectionUtils.isEmpty(data.get("NSR")) ? data.get("NSR").get(0) : new HashMap<>();
+                this.JCXX = !CollectionUtils.isEmpty(data.get("JCXX")) ? data.get("JCXX").get(0) : new HashMap<>();
+                this.FRXX = !CollectionUtils.isEmpty(data.get("FRXX")) ? data.get("FRXX").get(0) : new HashMap<>();
+                this.XYJB = !CollectionUtils.isEmpty(data.get("XYJB")) ? data.get("XYJB").get(0) : new HashMap<>();
                 this.TZF_COUNT = CollectionUtils.isEmpty(data.get("TZF")) ? 0 : data.get("TZF").size();
                 this.TZF = data.getOrDefault("TZF", empty);
 
-                this.KZXX = CollectionUtils.isEmpty(data.get("KZXX")) ? data.get("KZXX").get(0) : new HashMap<>();
-                this.PZQK = CollectionUtils.isEmpty(data.get("PZQK")) ? data.get("PZQK").get(0) : new HashMap<>();
+                this.KZXX = !CollectionUtils.isEmpty(data.get("KZXX")) ? data.get("KZXX").get(0) : new HashMap<>();
+                this.PZQK = !CollectionUtils.isEmpty(data.get("PZQK")) ? data.get("PZQK").get(0) : new HashMap<>();
 
                 this.QYBGXX_COUNT = CollectionUtils.isEmpty(data.get("QYBGXX")) ? 0 : data.get("QYBGXX").size();
                 this.QYBGXX = data.getOrDefault("QYBGXX", empty);

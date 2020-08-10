@@ -9,6 +9,7 @@ import com.dfwy.controller.TaxDataTestController;
 import com.dfwy.service.CQHelper;
 import com.dfwy.service.TaxDataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 @Service
 @Slf4j
+@Data
 public class TaxDataServiceImpl implements TaxDataService {
     @Autowired
     private TaxRequestFactory taxRequestFactory;
